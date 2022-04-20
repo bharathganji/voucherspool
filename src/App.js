@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
   Outlet,
+  HashRouter,
 } from "react-router-dom";
 
 import FixedBottomNavigation from "./components/BottomNavigation";
@@ -15,10 +16,10 @@ import AddCashToDepositWallet from "./components/wallet/AddCashToDepositWallet";
 import AddCashToAdsWallet from "./components/wallet/AddCashToAdsWallet";
 import HomePage from "./components/homepage/HomePage";
 import Shop from "./components/shop/Shop";
-
+import PageNotFound from './components/pagenotfound/PageNotFound'
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Navigate to={"/shop"} />}></Route>
         <Route path="/" element={<FixedBottomNavigation />}>
@@ -36,8 +37,10 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<Navigate to="/pools" />} />
+        <Route path='/404' element={<PageNotFound/>} />
+        
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

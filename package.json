@@ -2,6 +2,7 @@
   "name": "voucherspool",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://bharathganji.github.io/voucherspool",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -17,6 +18,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
