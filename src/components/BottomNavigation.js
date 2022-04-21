@@ -66,8 +66,8 @@ export default function FixedBottomNavigation() {
   };
 
   return (
-    // <React.Fragment>
-      <Container maxWidth="sm">
+    <React.Fragment>
+      {/* <Container maxWidth="sm"> */}
       <Outlet />
       <CssBaseline />
 
@@ -117,7 +117,8 @@ export default function FixedBottomNavigation() {
           />
         </BottomNavigation>
       </Paper>
-    {/* </React.Fragment> */}
-    </Container>
+      {/* </Container> */}
+    </React.Fragment>
+   
   );
 }

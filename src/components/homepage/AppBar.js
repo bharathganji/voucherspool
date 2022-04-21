@@ -23,7 +23,7 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            VouchersPool
+            VoucherPool
           </Typography>
           <Button variant='outlined'  color="primary">Login</Button>
         </Toolbar>
