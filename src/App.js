@@ -16,7 +16,8 @@ import AddCashToDepositWallet from "./components/wallet/AddCashToDepositWallet";
 import AddCashToAdsWallet from "./components/wallet/AddCashToAdsWallet";
 import HomePage from "./components/homepage/HomePage";
 import Shop from "./components/shop/Shop";
-import PageNotFound from './components/pagenotfound/PageNotFound'
+import PageNotFound from "./components/pagenotfound/PageNotFound";
+import VouchersListView from "./components/shop/VouchersListView";
 function App() {
   return (
     <HashRouter>
@@ -28,7 +29,8 @@ function App() {
           <Route path="pools" element={<HomePage />} />
           <Route path="history" element={<ErrorPage />} />
           <Route path="wallet" element={<Wallet />} />
-          <Route path="shop" element={<Shop />} />
+          <Route path="shop" element={<Shop />}></Route>
+          <Route path="shop:id" element={<VouchersListView />} />
           <Route
             path="add-deposit-wallet"
             element={<AddCashToDepositWallet />}
@@ -36,9 +38,8 @@ function App() {
           <Route path="add-ads-wallet" element={<AddCashToAdsWallet />} />
           <Route path="profile" element={<Profile />} />
         </Route>
-        <Route path="*" element={<Navigate to="/pools" />} />
-        <Route path='/404' element={<PageNotFound/>} />
-        
+        <Route path="*" element={<Navigate to="/404" />} />
+        <Route path="/404" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
   );

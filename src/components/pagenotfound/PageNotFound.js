@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function PageNotFound() {
   return (
     <div>
-      <Button variant="outlined" Component={Link} to={"shop"}>
+      <Button variant="outlined" ref={'shop'}>
         Go to shop
       </Button>
     </div>
