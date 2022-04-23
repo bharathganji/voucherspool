@@ -18,9 +18,30 @@ import HomePage from "./components/homepage/HomePage";
 import Shop from "./components/shop/Shop";
 import PageNotFound from "./components/pagenotfound/PageNotFound";
 import VouchersListView from "./components/shop/VouchersListView";
+import Login from "./components/login/Login";
+import Auth, { AuthProvider } from './contexts/Auth'
+import { useEffect, useState } from "react";
+import { supabase } from "./supabase";
+import Account from "./components/login/Account";
+
 function App() {
+  const [session, setSession] = useState()
+  useEffect(() => {
+    setSession(supabase.auth.session())
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
   return (
+    
+
+
+
     <HashRouter>
+      <div className="container" style={{ padding: '50px 0 100px 0' }}>
+      {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+    </div>
       <Routes>
         <Route path="/" element={<Navigate to={"/shop"} />}></Route>
         <Route path="/" element={<FixedBottomNavigation />}>
@@ -38,6 +59,8 @@ function App() {
           <Route path="add-ads-wallet" element={<AddCashToAdsWallet />} />
           <Route path="profile" element={<Profile />} />
         </Route>
+        <Route path="login" element={<Account />} />
+
         <Route path="*" element={<Navigate to="/404" />} />
         <Route path="/404" element={<PageNotFound />} />
       </Routes>

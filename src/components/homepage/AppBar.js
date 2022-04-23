@@ -7,11 +7,12 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Divider } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function ButtonAppBar() {
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar position="static" color="" elevation={0} >
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" color="" elevation={0}>
         <Toolbar>
           {/* <IconButton
             size="large"
@@ -25,11 +26,17 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             VoucherPool
           </Typography>
-          <Button variant='outlined'  color="primary">Login</Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            component={Link}
+            to={"/login"}
+          >
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
-      <Divider/>
-
+      <Divider />
     </Box>
   );
 }

@@ -3,8 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
-import { Link, Navigate, Outlet } from "react-router-dom";
-import Container from "@mui/material/Container";
+import { Link, Outlet } from "react-router-dom";
 import {
   AccountBalanceWallet,
   EmojiEvents,
@@ -12,6 +11,7 @@ import {
   Person,
   AddShoppingCart,
 } from "@mui/icons-material";
+import Helmet from "react-helmet";
 
 // function refreshMessages() {
 //   const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
@@ -69,6 +69,12 @@ export default function FixedBottomNavigation() {
     <React.Fragment>
       {/* <Container maxWidth="sm"> */}
       <Outlet />
+      <Helmet>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </Helmet>
       <CssBaseline />
 
       <Paper
@@ -119,6 +125,5 @@ export default function FixedBottomNavigation() {
       </Paper>
       {/* </Container> */}
     </React.Fragment>
-   
   );
 }
