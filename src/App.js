@@ -38,7 +38,7 @@ function App() {
     // console.log(pathname);
   }, []);
   return (
-    <BrowserRouter>
+    <HashRouter>
       {/* <div className="container" style={{ padding: '50px 0 100px 0' }}>
     //   {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
     // </div> */}
@@ -60,7 +60,7 @@ function App() {
       </Routes>
 
       <FixedBottomNavigation />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
