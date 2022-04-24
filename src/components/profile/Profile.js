@@ -5,6 +5,7 @@ import { ArrowBackIosNew, Backspace } from "@mui/icons-material";
 import { Navigate } from "react-router-dom";
 import InsetDividers from "./Divider";
 import { display } from "@mui/system";
+import FixedBottomNavigation from "../BottomNavigation";
 
 export default function Profile() {
   return (
@@ -55,6 +56,7 @@ export default function Profile() {
       </div>
 
       <InsetDividers />
+      {/* <FixedBottomNavigation/> */}
     </React.Fragment>
   );
 }

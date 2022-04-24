@@ -3,7 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import {
   AccountBalanceWallet,
   EmojiEvents,
@@ -58,13 +58,15 @@ export default function FixedBottomNavigation() {
 
   //     </>
   //   );
-  // const pathname = window.location.pathname=='/'?'/pools':'/';
+
+  // const pathname = window.location.pathname;
   // console.log(pathname);
-  const [value, setValue] = React.useState("/shop");
+  const navigate = useNavigate();
+  const [value, setValue] = React.useState("/");
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    navigate(newValue, { replace: true });
   };
-
   return (
     <React.Fragment>
       {/* <Container maxWidth="sm"> */}
@@ -89,37 +91,37 @@ export default function FixedBottomNavigation() {
           <BottomNavigationAction
             label="pools"
             icon={<Home />}
-            to={"/pools"}
+            // to={"/pools"}
+            // component={Link}
             value={"/pools"}
-            component={Link}
           />
           <BottomNavigationAction
             label="Profile"
             icon={<Person />}
-            to={"/profile"}
+            // to={"/profile"}
             value={"/profile"}
-            component={Link}
+            // component={Link}
           />
           <BottomNavigationAction
             label="History"
             icon={<EmojiEvents />}
-            to={"/history"}
+            // to={"/history"}
             value={"/history"}
-            component={Link}
+            // component={Link}
           />
           <BottomNavigationAction
             label="Wallet"
             icon={<AccountBalanceWallet />}
-            to={"/wallet"}
+            // to={"/wallet"}
             value={"/wallet"}
-            component={Link}
+            // component={Link}
           />
           <BottomNavigationAction
             label="shop"
             icon={<AddShoppingCart />}
-            to={"/shop"}
-            value={"/shop"}
-            component={Link}
+            // to={"/shop"}
+            value={"/"}
+            // component={Link}
           />
         </BottomNavigation>
       </Paper>

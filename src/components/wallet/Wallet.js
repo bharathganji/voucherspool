@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import CurrencyRupeeRoundedIcon from "@mui/icons-material/CurrencyRupeeRounded";
 
 import { Link, Navigate, Outlet } from "react-router-dom";
+import FixedBottomNavigation from "../BottomNavigation";
 
 function handleAddCash(param) {
   console.log(param);
@@ -65,6 +66,8 @@ export default function Wallet() {
           </Button>
         </Paper>
       ))}
+
+      {/* <FixedBottomNavigation/> */}
     </div>
   );
 }

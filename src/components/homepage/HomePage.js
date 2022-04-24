@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Divider } from "@mui/material";
+import FixedBottomNavigation from "../BottomNavigation";
 
 export default function HomePage() {
   const Item = styled(Paper)(({ theme }) => ({
@@ -34,6 +35,7 @@ export default function HomePage() {
         </Grid>
       </Grid>
     <Paper  sx={{marginBottom:'100px'}}></Paper>
+    {/* <FixedBottomNavigation/> */}
     </div>
   );
 }
