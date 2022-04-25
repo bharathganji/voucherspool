@@ -8,6 +8,7 @@ import CurrencyRupeeRoundedIcon from "@mui/icons-material/CurrencyRupeeRounded";
 
 import { Link, Navigate, Outlet } from "react-router-dom";
 import FixedBottomNavigation from "../BottomNavigation";
+import { motion } from "framer-motion";
 
 function handleAddCash(param) {
   console.log(param);
@@ -22,18 +23,22 @@ export default function Wallet() {
        \n cannot be withdrawn, 
        kindly use to withdraw in the form of vouchers`,
       link: "/add-deposit-wallet",
-      value:"add cash"
+      value: "add cash",
     },
     {
       type: "Ads wallet",
       amount: 0,
       description: "can be used to participate in pools",
       link: "/add-ads-wallet",
-      value:"earn cash",
+      value: "earn cash",
     },
   ];
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Paper elevation={1} className="order-history">
         <HistoryIcon color="primary" /> Order History
       </Paper>
@@ -62,12 +67,12 @@ export default function Wallet() {
             to={wallet.link}
             component={Link}
           >
-          {wallet.value}
+            {wallet.value}
           </Button>
         </Paper>
       ))}
 
       {/* <FixedBottomNavigation/> */}
-    </div>
+    </motion.div>
   );
 }

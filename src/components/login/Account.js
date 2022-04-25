@@ -1,110 +1,199 @@
-import { useState, useEffect } from 'react'
-import { supabase } from '../../supabase'
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Text,
+  useColorModeValue,
+  useToast,
+} from "@chakra-ui/react";
+// import React, {useState}  from 'react';
 
-export default function Account({ session }) {
-  const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState()
-  const [website, setWebsite] = useState()
-  const [avatar_url, setAvatarUrl] = useState()
+import { useEffect, useState } from "react";
+import { supabaseClient } from "../../supabase";
+
+import PersonalAvatar from "./PersonalAvatar";
+
+const Account = ({ session }) => {
+  const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState(null);
+  const [website, setWebsite] = useState(null);
+  const [avatar_url, setAvatarUrl] = useState(null);
+  const toast = useToast();
 
   useEffect(() => {
-    getProfile()
-  }, [session])
+    getProfile();
+  }, [session]);
 
   async function getProfile() {
     try {
-      setLoading(true)
-      const user = supabase.auth.user()
+      setLoading(true);
+      const user = supabaseClient.auth.user();
 
-      let { data, error, status } = await supabase
-        .from('profiles')
+      let { data, error, status } = await supabaseClient
+        .from("profiles")
         .select(`username, website, avatar_url`)
-        .eq('id', user.id)
-        .single()
+        .eq("id", user?.id)
+        .single();
 
       if (error && status !== 406) {
-        throw error
+        throw error;
       }
 
       if (data) {
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        setUsername(data.username);
+        setWebsite(data.website);
+        setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   async function updateProfile({ username, website, avatar_url }) {
     try {
-      setLoading(true)
-      const user = supabase.auth.user()
+      setLoading(true);
+      const user = supabaseClient.auth.user();
 
       const updates = {
-        id: user.id,
+        id: user?.id,
         username,
         website,
         avatar_url,
         updated_at: new Date(),
-      }
+      };
 
-      let { error } = await supabase.from('profiles').upsert(updates, {
-        returning: 'minimal', // Don't return the value after inserting
-      })
+      let { error } = await supabaseClient.from("profiles").upsert(updates, {
+        returning: "minimal", // Don't return the value after inserting
+      });
 
       if (error) {
-        throw error
+        throw error;
       }
+      toast({
+        title: "Profile updated.",
+        position: "top",
+        variant: "subtle",
+        description: "",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="username">Name</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
+    // <div>
+    <Flex
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Box
+        maxW={"445px"}
+        w={"full"}
+        bg={useColorModeValue("white", "gray.900")}
+        boxShadow={"2xl"}
+        rounded={"lg"}
+        p={6}
+        textAlign={"center"}
+        justifyItems={"center"}
+        justifyContent={"center"}
+      >
+        <PersonalAvatar
+          url={avatar_url}
+          onUpload={(url) => {
+            setAvatarUrl(url);
+            updateProfile({ username, website, avatar_url: url });
+          }}
         />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="website"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+        <Text fontSize={"sm"} fontWeight={500} color={"gray.500"} mb={4}>
+          {session.user.email}
+        </Text>
+        <Stack spacing={4} p={4}>
+          <FormControl>
+            <FormLabel>Username</FormLabel>
+            <Input
+              type={"text"}
+              value={username || ""}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder={username || "username"}
+              color={useColorModeValue("gray.800", "gray.200")}
+              bg={useColorModeValue("gray.100", "gray.600")}
+              rounded={"full"}
+              border={0}
+              _focus={{
+                bg: useColorModeValue("gray.200", "gray.800"),
+                outline: "none",
+              }}
+            />
+          </FormControl>
+        </Stack>
+        <Stack spacing={4} p={4}>
+          <FormControl>
+            <FormLabel>Website</FormLabel>
+            <Input
+              type={"text"}
+              value={website || ""}
+              onChange={(e) => setWebsite(e.target.value)}
+              placeholder={website || "website"}
+              color={useColorModeValue("gray.800", "gray.200")}
+              bg={useColorModeValue("gray.100", "gray.600")}
+              rounded={"full"}
+              border={0}
+              _focus={{
+                bg: useColorModeValue("gray.200", "gray.800"),
+                outline: "none",
+              }}
+            />
+          </FormControl>
+        </Stack>
+        <Stack mt={8} direction={"row"} spacing={4}>
+          <Button
+            onClick={() => supabaseClient.auth.signOut()}
+            flex={1}
+            fontSize={"sm"}
+            rounded={"full"}
+            _focus={{
+              bg: "gray.200",
+            }}
+          >
+            Logout
+          </Button>
+          <Button
+            isLoading={loading}
+            loadingText="Updating ..."
+            onClick={() => updateProfile({ username, website, avatar_url })}
+            flex={1}
+            fontSize={"sm"}
+            rounded={"full"}
+            bg={"green.400"}
+            color={"white"}
+            boxShadow={"0 5px 20px 0px rgb(72 187 120 / 43%)"}
+            _hover={{
+              bg: "green.500",
+            }}
+            _focus={{
+              bg: "green.500",
+            }}
+          >
+            {loading || "Update"}
+          </Button>
+        </Stack>
+      </Box>
+    </Flex>
+    // </div>
+  );
+};
 
-      <div>
-        <button
-          className="button block primary"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-
-      <div>
-        <button className="button block" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
-      </div>
-    </div>
-  )
-}
+export default Account;

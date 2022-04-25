@@ -1,99 +1,95 @@
-// import React, { useContext, useState, useEffect } from "react";
-// import { supabase } from "../supabase";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  useColorModeValue,
+  useToast
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { supabaseClient } from '../supabase';
 
-// const AuthContext = React.createContext();
-// export function AuthProvider({ children }) {
-//   const [user, setUser] = useState();
-//   const [loading, setLoading] = useState(true);
 
-//   useEffect(() => {
-//     // Check active sessions and sets the user
-//     const session = supabase.auth.session();
 
-//     setUser(session?.user ?? null);
-//     setLoading(false);
-
-//     // Listen for changes on auth state (logged in, signed out, etc.)
-//     const { data: listener } = supabase.auth.onAuthStateChange(
-//       async (event, session) => {
-//         setUser(session?.user ?? null);
-//         setLoading(false);
-//       }
-//     );
-
-//     return () => {
-//       listener?.unsubscribe();
-//     };
-//   }, []);
-
-//   // Will be passed down to Signup, Login and Dashboard components
-//   const value = {
-//     signUp: (data) => supabase.auth.signUp(data),
-//     signIn: (data) => supabase.auth.signIn(data),
-//     signOut: () => supabase.auth.signOut(),
-//     user,
-//   };
-
-//   return (
-//     <AuthContext.Provider value={value}>
-//       {!loading && children}
-//     </AuthContext.Provider>
-//   );
-// }
-
-// export function useAuth() {
-//     return useContext(AuthContext)
-//   }
-
-import { useState } from "react";
-import { supabase } from "../supabase";
-
-export default function Auth() {
+const Auth = () => {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
+  const toast = useToast();
 
   const handleLogin = async (email) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signIn({ email });
+      const { error } = await supabaseClient.auth.signIn({ email });
       if (error) throw error;
-      alert("Check your email for the login link!");
+      toast({
+        title: 'Account created.',
+        position: 'top',
+        description: 'Check your email for the login link',
+        status: 'success',
+        duration: 5000,
+        isClosable: true
+      });
     } catch (error) {
-      alert(error.error_description || error.message);
+      toast({
+        title: 'Error',
+        position: 'top',
+        description: error.error_description || error.message,
+        status: 'error',
+        duration: 5000,
+        isClosable: true
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="row flex flex-center">
-      <div className="col-6 form-widget">
-        <h1 className="header">Supabase + React</h1>
-        <p className="description">
-          Sign in via magic link with your email below
-        </p>
-        <div>
-          <input
-            className="inputField"
-            type="email"
-            placeholder="Your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleLogin(email);
-            }}
-            className={"button block"}
-            disabled={loading}
-          >
-            {loading ? <span>Loading</span> : <span>Send magic link</span>}
-          </button>
-        </div>
-      </div>
+    <div>
+      <Flex minH={'100vh'} align={'center'} justify={'center'} bg={useColorModeValue('gray.50', 'gray.800')}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'}>Sign in to supabase</Heading>
+            <Text fontSize={'lg'} color={'gray.600'}>
+              via magic link with your email below ✌️
+            </Text>
+          </Stack>
+          <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
+            <Stack spacing={4}>
+              <FormControl id="email">
+                <FormLabel>Email address</FormLabel>
+                <Input value={email} onChange={e => setEmail(e.target.value)} type="email" />
+              </FormControl>
+              <Stack spacing={10}>
+                <Button
+                  onClick={e => {
+                    e.preventDefault();
+                    handleLogin(email);
+                  }}
+                  isLoading={loading}
+                  loadingText="Signing in ..."
+                  colorScheme="teal"
+                  variant="outline"
+                  spinnerPlacement="start"
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500'
+                  }}
+                >
+                  {loading || 'Send magic link'}
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
     </div>
   );
-}
+};
+
+export default Auth;

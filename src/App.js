@@ -23,6 +23,7 @@ import Auth, { AuthProvider } from "./contexts/Auth";
 import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 import Account from "./components/login/Account";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   // const [session, setSession] = useState();
@@ -38,29 +39,35 @@ function App() {
     // console.log(pathname);
   }, []);
   return (
-    <HashRouter>
-      {/* <div className="container" style={{ padding: '50px 0 100px 0' }}>
+    <AnimatePresence exitBeforeEnter>
+      <HashRouter>
+        {/* <div className="container" style={{ padding: '50px 0 100px 0' }}>
     //   {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
     // </div> */}
-      <Routes>
-        <Route path="/" element={<Shop />} />
-        <Route path="history" element={<ErrorPage />} />
-        <Route path="wallet" element={<Wallet />} />
-        {/* <Route path="shop" element={<Shop />}></Route> */}
-        {/* <Route path="shop:id" element={<VouchersListView />} /> */}
-        <Route path="add-deposit-wallet" element={<AddCashToDepositWallet />} />
-        <Route path="add-ads-wallet" element={<AddCashToAdsWallet />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="pools" element={<HomePage />} />
+        <Routes>
+          <Route path="/" element={<Shop />} />
+          <Route path="history" element={<ErrorPage />} />
+          <Route path="wallet" element={<Wallet />} />
+          {/* <Route path="shop" element={<Shop />}></Route> */}
+          {/* <Route path="shop:id" element={<VouchersListView />} /> */}
+          <Route
+            path="add-deposit-wallet"
+            element={<AddCashToDepositWallet />}
+          />
+          <Route path="add-ads-wallet" element={<AddCashToAdsWallet />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="pools" element={<HomePage />} />
 
-        <Route path="login" element={<Account />} />
-        <Route path="*" element={<Navigate to="/404" />} />
-        <Route path="/error-page" element={<ErrorPage />} />
-        <Route path="/404" element={<PageNotFound />} />
-      </Routes>
+          <Route path="login" element={<Login />} />
+          
+          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="/error-page" element={<ErrorPage />} />
+          <Route path="/404" element={<PageNotFound />} />
+        </Routes>
 
-      <FixedBottomNavigation />
-    </HashRouter>
+        <FixedBottomNavigation />
+      </HashRouter>
+    </AnimatePresence>
   );
 }
 
