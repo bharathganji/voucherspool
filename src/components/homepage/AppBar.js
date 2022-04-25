@@ -26,14 +26,14 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             VoucherPool
           </Typography>
-          {/* <Button
+          <Button
             variant="outlined"
             color="primary"
             component={Link}
             to={"/login"}
           >
             Login
-          </Button> */}
+          </Button>
         </Toolbar>
       </AppBar>
       <Divider />
