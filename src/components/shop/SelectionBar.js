@@ -10,12 +10,14 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
+import Shop from "./Shop";
 
-export default function SelectionBar() {
+export default function SelectionBar(props) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    props.handleVoucherData(newValue)
   };
 
   return (
@@ -27,11 +29,11 @@ export default function SelectionBar() {
         scrollButtons
         allowScrollButtonsMobile
         // centered
-        sx={{
-          [`& .${tabsClasses.scrollButtons}`]: {
-            "&.Mui-disabled": { opacity: 0.3 },
-          },
-        }}
+        // sx={{
+        //   [`& .${tabsClasses.scrollButtons}`]: {
+        //     "&.Mui-disabled": { opacity: 0.3 },
+        //   },
+        // }}
       >
         <Tab label="All" />
         <Tab

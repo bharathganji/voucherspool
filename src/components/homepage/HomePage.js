@@ -35,7 +35,7 @@ export default function HomePage() {
         </Grid>
       </Grid>
     <Paper  sx={{marginBottom:'100px'}}></Paper>
-    {/* <FixedBottomNavigation/> */}
+    
     </div>
   );
 }

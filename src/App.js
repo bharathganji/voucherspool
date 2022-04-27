@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 import Account from "./components/login/Account";
 import { AnimatePresence } from "framer-motion";
+import { Paper } from "@mui/material";
 
 function App() {
   // const [session, setSession] = useState();

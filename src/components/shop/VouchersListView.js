@@ -1,12 +1,12 @@
-import React from 'react'
-import FixedBottomNavigation from '../BottomNavigation'
+import React from "react";
+import FixedBottomNavigation from "../BottomNavigation";
 
-export default function VouchersListView() {
+export default function VouchersListView(props) {
   return (
-    <div>VouchersListView
-
-      {/* <FixedBottomNavigation/> */}
+    <div>
+      {props.VoucherData.map((voucher) => (
+        <div id={voucher.title}> {voucher.title}</div>
+      ))}
     </div>
-    
-  )
+  );
 }
