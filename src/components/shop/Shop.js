@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { supabaseClient } from "../../supabase";
 import FixedBottomNavigation from "../BottomNavigation";
+import Loading from "../loading/Loading";
 import GridView from "./GridView";
 import PrimarySearchAppBar from "./PrimarySearchAppBar";
 import SelectionBar from "./SelectionBar";
@@ -38,19 +39,19 @@ export default function Shop(props) {
         filterData("ecommerce");
         break;
       case 2:
-        filterData("entertainment");
+        filterData("gaming&esports");
         break;
       case 3:
-        filterData("fashion&lifestyle");
+        filterData("entertainment");
         break;
       case 4:
         filterData("food&drinks");
         break;
       case 5:
-        filterData("gaming&esports");
+        filterData("grocery&homeessentials");
         break;
       case 6:
-        filterData("grocery&homeessentials");
+        filterData("fashion&lifestyle");
         break;
       case 7:
         filterData("travel");
@@ -82,11 +83,7 @@ export default function Shop(props) {
   //   );
   // }
   if (VoucherData === undefined || loading) {
-    return (
-      <div>
-        <h1>loading...</h1>
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <motion.div
@@ -95,12 +92,12 @@ export default function Shop(props) {
       exit={{ opacity: 0 }}
     >
       {/* hello */}
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar VoucherData={VoucherData} />
       <SelectionBar handleVoucherData={(params) => handleVouchers(params)} />
       <GridView VoucherData={VoucherData} />
       {/* <VouchersListView VoucherData={VoucherData} /> */}
-      
-      <Paper  sx={{marginBottom:'100px'}}></Paper>
+
+      <Paper sx={{ marginBottom: "100px" }}></Paper>
     </motion.div>
   );
 }

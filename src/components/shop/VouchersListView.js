@@ -1,12 +1,13 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import FixedBottomNavigation from "../BottomNavigation";
 
 export default function VouchersListView(props) {
+  const { id } = useParams();
   return (
     <div>
-      {props.VoucherData.map((voucher) => (
-        <div id={voucher.title}> {voucher.title}</div>
-      ))}
+      {/* <h2>{props.match.params.id}</h2>  */}
+      <h2>{id}</h2>
     </div>
   );
 }

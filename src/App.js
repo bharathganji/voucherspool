@@ -47,6 +47,7 @@ function App() {
     // </div> */}
         <Routes>
           <Route path="/" element={<Shop />} />
+          <Route path="/shop/:id" element={<VouchersListView />} />
           <Route path="history" element={<ErrorPage />} />
           <Route path="wallet" element={<Wallet />} />
           {/* <Route path="shop" element={<Shop />}></Route> */}
