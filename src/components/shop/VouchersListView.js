@@ -1,6 +1,5 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import FixedBottomNavigation from "../BottomNavigation";
 
 export default function VouchersListView(props) {
   const { id } = useParams();

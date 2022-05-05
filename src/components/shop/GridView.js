@@ -3,18 +3,15 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import ActionAreaCard from "../homepage/ActionAreaCard";
-import { Badge, Button, Container, Icon } from "@mui/material";
+import { Badge, Container, CardActionArea } from "@mui/material";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
 import { Link } from "react-router-dom";
 import { DiscountOutlined } from "@mui/icons-material";
 import Sparkles from "./Sparkles";
-import { Flex } from "@chakra-ui/react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -36,12 +33,16 @@ export default function GridView(props) {
           {props.VoucherData.map((voucher) => {
             return (
               <Grid item xs={2} sm={4} md={4} key={voucher.title}>
-                <Card sx={{ maxWidth: 345 }} key={voucher.title}>
+                <Card
+                  sx={{ maxWidth: "auto", height: "100%" }}
+                  key={voucher.title}
+                >
                   <CardActionArea component={Link} to={`shop/${voucher.title}`}>
                     <CardMedia
                       component="img"
-                      height="170"
-                      //   sx={{ width: "100%", height: "100%" }}
+                      loading="lazy"
+                      object-fit="fill"
+                      height="170px"
                       image={voucher.img}
                       alt="green iguana"
                     />
@@ -50,11 +51,9 @@ export default function GridView(props) {
                         gutterBottom
                         variant="h5"
                         component="div"
-                        sx={{ display: "flex" }}
+                        // sx={{ display: "flex" }}
                       >
-                        <Sparkles> {voucher.title}</Sparkles>
-                        {"  "}
-
+                        <Sparkles> {voucher.title}</Sparkles><br/>
                         <Badge>
                           <span
                             style={{
@@ -64,7 +63,7 @@ export default function GridView(props) {
                           >
                             {voucher.discount != 0 ? <DiscountOutlined /> : ""}
                             {voucher.discount != 0
-                              ? voucher.discount + "%"
+                              ?voucher.discount + "% off"
                               : ""}
                           </span>
                         </Badge>

@@ -10,7 +10,6 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-// import React, {useState}  from 'react';
 
 import { useEffect, useState } from "react";
 import { supabaseClient } from "../../supabase";

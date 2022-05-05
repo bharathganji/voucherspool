@@ -1,12 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Outlet,
-  HashRouter,
-} from "react-router-dom";
+import { Routes, Route, Navigate, HashRouter } from "react-router-dom";
 
 import FixedBottomNavigation from "./components/BottomNavigation";
 import ErrorPage from "./components/ErrorPage";
@@ -19,26 +12,13 @@ import Shop from "./components/shop/Shop";
 import PageNotFound from "./components/pagenotfound/PageNotFound";
 import VouchersListView from "./components/shop/VouchersListView";
 import Login from "./components/login/Login";
-import Auth, { AuthProvider } from "./contexts/Auth";
-import { useEffect, useState } from "react";
-import { supabase } from "./supabase";
-import Account from "./components/login/Account";
 import { AnimatePresence } from "framer-motion";
-import { Paper } from "@mui/material";
+import { lazy, Suspense } from "react";
 
+// const Shop = lazy(() => import("./components/shop/Shop"));
 function App() {
-  // const [session, setSession] = useState();
-  // useEffect(() => {
-  //   setSession(supabase.auth.session());
+  const reload = () => window.location.reload();
 
-  //   supabase.auth.onAuthStateChange((_event, session) => {
-  //     setSession(session);
-  //   });
-  // }, []);
-  useEffect(() => {
-    // const pathname = window.location.pathname;
-    // console.log(pathname);
-  }, []);
   return (
     <AnimatePresence exitBeforeEnter>
       <HashRouter>
@@ -46,6 +26,7 @@ function App() {
     //   {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
     // </div> */}
         <Routes>
+          {/* <Suspense fallback={<div>loading</div>}/> */}
           <Route path="/" element={<Shop />} />
           <Route path="/shop/:id" element={<VouchersListView />} />
           <Route path="history" element={<ErrorPage />} />
@@ -61,10 +42,12 @@ function App() {
           <Route path="pools" element={<HomePage />} />
 
           <Route path="login" element={<Login />} />
-          
-          <Route path="*" element={<Navigate to="/404" />} />
+
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/error-page" element={<ErrorPage />} />
-          <Route path="/404" element={<PageNotFound />} />
+          <Route path="404" element={<PageNotFound />} />
+
+          <Route path="/ads.txt" onEnter={reload} />
         </Routes>
 
         <FixedBottomNavigation />

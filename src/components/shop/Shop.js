@@ -1,13 +1,11 @@
 import { Paper } from "@mui/material";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabaseClient } from "../../supabase";
-import FixedBottomNavigation from "../BottomNavigation";
 import Loading from "../loading/Loading";
 import GridView from "./GridView";
 import PrimarySearchAppBar from "./PrimarySearchAppBar";
 import SelectionBar from "./SelectionBar";
-import VouchersListView from "./VouchersListView";
 
 async function fetchdata() {
   let { data: vouchers, error } = await supabaseClient
@@ -75,13 +73,6 @@ export default function Shop(props) {
       });
   }, []);
 
-  // if (loading) {
-  //   return (
-  //     <div>
-  //       <h1>loading...</h1>
-  //     </div>
-  //   );
-  // }
   if (VoucherData === undefined || loading) {
     return <Loading />;
   }

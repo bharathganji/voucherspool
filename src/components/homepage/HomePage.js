@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Divider } from "@mui/material";
 import FixedBottomNavigation from "../BottomNavigation";
+import ScrollBackground from "../login/ScrollBackground";
 
 export default function HomePage() {
   const Item = styled(Paper)(({ theme }) => ({
@@ -34,6 +35,8 @@ export default function HomePage() {
         <ActionAreaCard />
         </Grid>
       </Grid>
+
+      {/* <ScrollBackground/> */}
     <Paper  sx={{marginBottom:'100px'}}></Paper>
     
     </div>
