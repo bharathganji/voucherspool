@@ -1,30 +1,32 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
 import rupee from "../../../src/assets/rupee.webp";
 
-export default function ActionAreaCard() {
+const ActionAreaCard = (props) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card sx={{ maxWidth: 345 }} elevation={2}>
+      <CardActionArea href={props.data.url}>
         <CardMedia
           component="img"
           height="140"
-          image={rupee}
-          alt="green iguana"
+          image={props.data.assets.brick}
+          alt="game loading.."
         />
-        <CardContent>
+        {/* <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            pool
+            {props.data.name.en}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            a random pool
+            {props.data.description.en}
           </Typography>
-        </CardContent>
+        </CardContent> */}
       </CardActionArea>
     </Card>
   );
-}
+};
+
+export default ActionAreaCard;
